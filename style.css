@@ -11,13 +11,7 @@ html {
 }
 
 /* adjust typography defaults */
-body {
-  margin: 1rem;
-  font-family: sans-serif;
-  line-height: 1.6;
-  background-color: #FFF9E2;
-            
-}
+
 
 /* images and videos max out at full width */
 img,
@@ -25,4 +19,61 @@ video {
   height: auto;
   max-width: 100%;
 }
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #FFF9E2;
+        }
+
+        header {
+            background-color: #399E8D;
+            padding: 20px;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+        
+        nav ul li a.active {
+            color: #ddd;
+        }
+        section {
+            padding: 50px;
+            background-color: #FFF9E2;
+            margin-bottom: 30px;
+        }
+
+        section h2 {
+            color: #146356;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            color: #3B3521;
+        }
+
+        footer {
+            background-color: #399E8D;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
 
