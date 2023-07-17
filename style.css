@@ -49,11 +49,11 @@ body {
         }
 
         nav ul li a:hover {
-            color: #ddd;
+            color: #dddddd;
         }
         
         nav ul li a.active {
-            color: #ddd;
+            color: #dddddd;
         }
         section {
             padding: 50px;
