@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Nonprofit</title>
+    <title>About Us - Food Nonprofit</title>
     <style>
-        /* Add CSS styles hci people */
+        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
             background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
@@ -38,12 +35,23 @@
             margin-right: 15px;
         }
 
-        nav ul li a.active {
+        nav ul li a:hover {
             color: #ddd;
         }
 
-        main {
-            flex-grow: 1;
+        section {
+            padding: 50px;
+            background-color: #fff;
+            margin-bottom: 30px;
+        }
+
+        section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            color: #777;
         }
 
         footer {
@@ -57,20 +65,6 @@
             margin: 0;
         }
     </style>
-    <script>
-        // JavaScript to add active class to the current nav link
-        document.addEventListener("DOMContentLoaded", function() {
-            var links = document.querySelectorAll("nav ul li a");
-            var currentFile = window.location.pathname.split("/").pop();
-
-            for (var i = 0; i < links.length; i++) {
-                var linkFile = links[i].href.split("/").pop();
-                if (linkFile === currentFile) {
-                    links[i].classList.add("active");
-                }
-            }
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -86,13 +80,13 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Add some page content here -->
-    </main>
-    
+    <section id="about">
+        <h2>About Us</h2>
+        <p>[Placeholder].</p>
+    </section>
+
     <footer>
         <p>&copy; 2023 Food Nonprofit. All rights reserved.</p>
     </footer>
 </body>
 </html>
-

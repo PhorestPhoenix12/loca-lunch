@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Nonprofit</title>
+    <title>Contact Us</title>
     <style>
-        /* Add CSS styles hci people */
+        /* Add design stuff here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
             background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
@@ -42,8 +39,35 @@
             color: #ddd;
         }
 
-        main {
-            flex-grow: 1;
+        section {
+            padding: 50px;
+            background-color: #fff;
+            margin-bottom: 30px;
+        }
+
+        section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            color: #777;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         footer {
@@ -58,7 +82,7 @@
         }
     </style>
     <script>
-        // JavaScript to add active class to the current nav link
+        // JavaScript to add active class to the current navigation link
         document.addEventListener("DOMContentLoaded", function() {
             var links = document.querySelectorAll("nav ul li a");
             var currentFile = window.location.pathname.split("/").pop();
@@ -77,22 +101,27 @@
         <h1 style="color: #fff;">Welcome to Our Food Nonprofit</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="resources.html">Local Resources</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <!-- Add some page content here -->
-    </main>
-    
+    <section>
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>If you have any questions or would like to get involved, please reach out to us:</p>
+            <ul>
+                <li>Email: info@foodnonprofit.org</li>
+                <li>Phone: 123-456-7890</li>
+            </ul>
+        </div>
+    </section>
+
     <footer>
         <p>&copy; 2023 Food Nonprofit. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
