@@ -14,7 +14,9 @@ html {
 body {
   margin: 1rem;
   font-family: sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
+  background-color: #FFF9E2;
+            
 }
 
 /* images and videos max out at full width */
