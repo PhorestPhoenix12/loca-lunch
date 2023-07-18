@@ -69,10 +69,11 @@ function randomXPosition() {
 function randomYPosition() {
   return Math.random() * -canvas.height;
 }
-function realreset(){
-  gameLoop();
+function resetGame() {
+  score = 0;
+  time = 100;
+  foodItemsOnScreen.length = 0;
 }
-
 function isCollision(rect1, rect2) {
   return (
     rect1.x < rect2.x + rect2.width &&
@@ -86,9 +87,10 @@ let score = 0;
 let time = 100;
 const foodItemsOnScreen = [];
 
-function updateScoreAndTime(points,timeGain) {
+function updateScoreAndTime(points, timeGain) {
   score += points;
   time = Math.min(time + timeGain, 100);
+  time = Math.max(time, 0); // Ensure time doesn't go below 0
 }
 
 function gameOver() {
@@ -142,7 +144,7 @@ function gameLoop() {
     }
   });
 
-  time -= 0.03;
+  time -= 0.1;
   time = Math.max(time, 0); 
   time = Math.min(time, 100);
   if (time <= 0) {
