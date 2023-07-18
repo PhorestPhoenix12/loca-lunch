@@ -1,203 +1,145 @@
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
-const player = {
-  x: 0,
-  y: 0,
-  width: 40,
-  height: 40,
-  speed: 10,
-  color: "blue"
-};
+// Constants for game elements
+const PLAYER_RADIUS = 20;
+const FOOD_RADIUS = 15;
+const PLAYER_SPEED = 10;
+const FOOD_FALL_SPEED = 3;
 
-const foodItems = [
-  { type: "apple", color: "red", timeGain: 5 },
-  { type: "banana", color: "yellow", timeGain: 10 },
-  { type: "cake", color: "brown", timeGain: 15 },
-  { type: "pizza", color: "orange", timeGain: 8 },
-  { type: "burger", color: "green", timeGain: 7 },
-  { type: "ice cream", color: "blue", timeGain: 12 }
-];
-
+// Game state variables
 let score = 0;
 let time = 100;
 let isGameOver = false;
+
+// Player object
+const player = {
+  x: canvas.width / 2,
+  y: canvas.height - PLAYER_RADIUS - 10,
+  radius: PLAYER_RADIUS,
+  color: "#1E88E5"
+};
+
+// Food items
+const foodItems = [
+  { type: "apple", color: "#E53935", timeGain: 5 },
+  { type: "banana", color: "#FFD54F", timeGain: 10 },
+  { type: "cake", color: "#795548", timeGain: 15 },
+  { type: "pizza", color: "#FF9800", timeGain: 8 },
+  { type: "burger", color: "#4CAF50", timeGain: 7 },
+  { type: "ice cream", color: "#1976D2", timeGain: 12 }
+];
+
 const foodItemsOnScreen = [];
 
-function drawPlayer() {
-  ctx.fillStyle = player.color;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+// Utility functions
+function getRandomFood() {
+  return foodItems[Math.floor(Math.random() * foodItems.length)];
 }
 
-function drawFood(food) {
-  ctx.fillStyle = food.color;
-  ctx.beginPath();
-  ctx.arc(food.x + food.width / 2, food.y + food.height / 2, food.width / 2, 0, Math.PI * 2);
-  ctx.closePath();
-  ctx.fill();
+function randomXPosition() {
+  return Math.random() * (canvas.width - FOOD_RADIUS * 2);
 }
 
-function drawTimer() {
-  ctx.fillStyle = "green";
-  ctx.fillRect(10, canvas.height - 30, (time / 100) * (canvas.width - 20), 20);
+function createFood() {
+  const food = getRandomFood();
+  return {
+    x: randomXPosition(),
+    y: -FOOD_RADIUS * 2,
+    radius: FOOD_RADIUS,
+    type: food.type,
+    color: food.color,
+    timeGain: food.timeGain
+  };
 }
 
-function drawScore() {
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText(`Score: ${score}`, 10, 30);
-}
-
-function drawGameOver() {
-  ctx.font = "40px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText("Game Over: final score " + score, canvas.width / 2 - 200, canvas.height / 2);
+function isCollision(circle1, circle2) {
+  const dx = circle1.x - circle2.x;
+  const dy = circle1.y - circle2.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  return distance < circle1.radius + circle2.radius;
 }
 
 function updateScoreAndTime(points, timeGain) {
   score += points;
   time += timeGain;
   time = Math.min(time, 100); // Ensure time doesn't go above 100
+  scoreDisplay.textContent = `Score: ${score}`;
 }
 
-function checkCollisions() {
-  foodItemsOnScreen.forEach((food, index) => {
-    if (isCollision(player, food)) {
-      updateScoreAndTime(1, food.timeGain);
-      foodItemsOnScreen.splice(index, 1);
-    }
-
-    // Remove food item if it goes off-screen
-    if (food.y > canvas.height) {
-      foodItemsOnScreen.splice(index, 1);
-    }
-  });
-}
-
-function resetGame() {
-  score = 0;
-  time = 100;
-  isGameOver = false;
-  player.x = canvas.width / 2 - player.width / 2;
-  player.y = canvas.height - player.height - 50;
-  foodItemsOnScreen.length = 0;
-}
-
-function isCollision(rect1, rect2) {
-  const circle = {
-    x: rect2.x + rect2.width / 2,
-    y: rect2.y + rect2.height / 2,
-    radius: rect2.width / 2
-  };
-
-  const distX = Math.abs(circle.x - rect1.x - rect1.width / 2);
-  const distY = Math.abs(circle.y - rect1.y - rect1.height / 2);
-
-  if (distX > rect1.width / 2 + circle.radius) return false;
-  if (distY > rect1.height / 2 + circle.radius) return false;
-
-  if (distX <= rect1.width / 2) return true;
-  if (distY <= rect1.height / 2) return true;
-
-  const dx = distX - rect1.width / 2;
-  const dy = distY - rect1.height / 2;
-  return dx * dx + dy * dy <= circle.radius * circle.radius;
-}
-
-function getRandomFood() {
-  return foodItems[Math.floor(Math.random() * foodItems.length)];
-}
-
-function randomXPosition() {
-  return Math.random() * (canvas.width - 30);
-}
-
-function randomYPosition() {
-  return Math.random() * (canvas.height - 30);
-}
-
-function moveLeft() {
-  player.x = Math.max(player.x - player.speed, 0);
-}
-
-function moveRight() {
-  player.x = Math.min(player.x + player.speed, canvas.width - player.width);
-}
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowLeft") {
-    moveLeft();
-  } else if (event.key === "ArrowRight") {
-    moveRight();
-  }
-});
-
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#b2ebf2");
-  gradient.addColorStop(1, "#80deea");
-  ctx.fillStyle = gradient;
+function gameOver() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  drawFoodItems(); // New function call to draw food items
+  ctx.fillStyle = "#FFFFFF";
+  ctx.font = "40px Arial";
+  ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
+  ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 130, canvas.height / 2 + 50);
+}
 
-  drawPlayer();
-
+// Game loop
+function gameLoop() {
   if (!isGameOver) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw player
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+    ctx.fillStyle = player.color;
+    ctx.fill();
+
+    // Draw food items
+    foodItemsOnScreen.forEach((food) => {
+      ctx.beginPath();
+      ctx.arc(food.x, food.y, food.radius, 0, Math.PI * 2);
+      ctx.fillStyle = food.color;
+      ctx.fill();
+    });
+
+    // Generate new food item
     if (Math.random() < 0.05) {
-      const randomFood = getRandomFood();
-      const foodType = randomFood.type;
-      const foodX = randomXPosition();
-      const foodY = randomYPosition();
-      const foodColor = randomFood.color;
-      const food = { x: foodX, y: foodY, width: 30, height: 30, type: foodType, color: foodColor };
-      foodItemsOnScreen.push(food);
+      foodItemsOnScreen.push(createFood());
     }
 
-    checkCollisions();
+    // Move food items and check for collisions
+    for (let i = foodItemsOnScreen.length - 1; i >= 0; i--) {
+      const food = foodItemsOnScreen[i];
+      food.y += FOOD_FALL_SPEED;
 
-    time -= 0.1;
-    time = Math.max(time, 0);
+      if (isCollision(player, food)) {
+        updateScoreAndTime(1, food.timeGain);
+        foodItemsOnScreen.splice(i, 1);
+      } else if (food.y > canvas.height) {
+        foodItemsOnScreen.splice(i, 1);
+      }
+    }
 
-    drawTimer();
-    drawScore();
+    // Draw timer bar
+    const timerBarWidth = (time / 100) * canvas.width;
+    ctx.fillStyle = "#00C853";
+    ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
 
+    // Check game over
     if (time <= 0) {
       isGameOver = true;
+      gameOver();
+    } else {
+      requestAnimationFrame(gameLoop);
     }
-  } else {
-    drawTimer();
-    drawScore();
-    drawGameOver();
-  }
-
-  // Continue the game loop as long as the game is not over
-  if (!isGameOver) {
-    requestAnimationFrame(gameLoop);
   }
 }
-function drawFoodItems() {
-  foodItemsOnScreen.forEach((food) => {
-    drawFood(food);
-  });
+
+// Handle player movement
+function movePlayer(event) {
+  if (event.key === "ArrowLeft") {
+    player.x = Math.max(player.x - PLAYER_SPEED, player.radius);
+  } else if (event.key === "ArrowRight") {
+    player.x = Math.min(player.x + PLAYER_SPEED, canvas.width - player.radius);
+  }
 }
-window.addEventListener("load", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  player.x = canvas.width / 2 - player.width / 2;
-  player.y = canvas.height - player.height - 50;
-  gameLoop();
-});
 
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+document.addEventListener("keydown", movePlayer);
 
-const resetButton = document.getElementById("reset-button");
-resetButton.addEventListener("click", () => {
-  resetGame();
-  gameLoop();
-});
+// Start the game
+const scoreDisplay = document.getElementById("score-display");
+gameLoop();
