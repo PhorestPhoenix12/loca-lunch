@@ -23,12 +23,12 @@ const player = {
 };
 
 const foodItems = [
-  { type: "apple", color: "red" },
-  { type: "banana", color: "yellow" },
-  { type: "cake", color: "brown" },
-  { type: "pizza", color: "orange" },
-  { type: "burger", color: "green" },
-  { type: "ice cream", color: "blue" }
+  { type: "apple", color: "red", timeValue: 5 },
+  { type: "banana", color: "yellow", timeValue: 10 },
+  { type: "cake", color: "brown", timeValue: 15 },
+  { type: "pizza", color: "orange", timeValue: 10 },
+  { type: "burger", color: "green", timeValue: 8 },
+  { type: "ice cream", color: "blue", timeValue: 12 }
 ];
 
 function moveLeft() {
@@ -71,19 +71,21 @@ function showGameOverScreen() {
   ctx.fillText("Press 'R' to restart", canvas.width / 2 - 150, canvas.height / 2 + 40);
 }
 
-function createFood(foodType, x, y, color) {
+function createFood(foodType, x, y, color, timeValue) {
   return {
     x,
     y,
     width: 30,
     height: 30,
     type: foodType,
-    color: color
+    color: color,
+    timeValue: timeValue
   };
 }
 
 function getRandomFood() {
-  return foodItems[Math.floor(Math.random() * foodItems.length)];
+  const foodTypeObj = foodItems[Math.floor(Math.random() * foodItems.length)];
+  return createFood(foodTypeObj.type, 0, 0, foodTypeObj.color, foodTypeObj.timeValue);
 }
 
 function randomXPosition() {
@@ -110,9 +112,9 @@ let score = 0;
 let time = 100;
 const foodItemsOnScreen = [];
 
-function updateScoreAndTime(points) {
-  score += points;
-  time = Math.min(time + 5, 100);
+function updateScoreAndTime(foodTimeValue) {
+  score += 1;
+  time = Math.min(time + timeValue, 100);
 }
 
 function gameOver() {
@@ -151,12 +153,12 @@ function gameLoop() {
     ctx.fill();
 
     if (isCollision(player, food)) {
-      updateScoreAndTime(1);
-      const index = foodItemsOnScreen.indexOf(food);
-      if (index !== -1) {
-        foodItemsOnScreen.splice(index, 1);
-      }
+    updateScoreAndTime(food.timeValue); // Use the timeValue of the caught food
+    const index = foodItemsOnScreen.indexOf(food);
+    if (index !== -1) {
+      foodItemsOnScreen.splice(index, 1);
     }
+  }
 
     if (food.y > canvas.height) {
       const index = foodItemsOnScreen.indexOf(food);
@@ -186,8 +188,9 @@ function gameLoop() {
   ctx.fillStyle = "black";
   ctx.fillText(`Score: ${score}`, 10, 30);
 
-  requestAnimationFrame(gameLoop);
+  if (!gameOverScreenShown) {
+    requestAnimationFrame(gameLoop);
+  }
 }
-
 adjustCanvasSize();
 gameLoop();
