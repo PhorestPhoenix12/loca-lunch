@@ -23,12 +23,12 @@ const player = {
 };
 
 const foodItems = [
-  { type: "apple", color: "red" },
-  { type: "banana", color: "yellow" },
-  { type: "cake", color: "brown" },
-  { type: "pizza", color: "orange" },
-  { type: "burger", color: "green" },
-  { type: "ice cream", color: "blue" }
+  { type: "apple", color: "red",timeGain: 5 },
+  { type: "banana", color: "yellow",timeGain:10 },
+  { type: "cake", color: "brown" ,timeGain:15},
+  { type: "pizza", color: "orange" ,timeGain:8},
+  { type: "burger", color: "green",timeGain:7 },
+  { type: "ice cream", color: "blue",timeGain: 12 }
 ];
 
 function moveLeft() {
@@ -86,16 +86,16 @@ let score = 0;
 let time = 100;
 const foodItemsOnScreen = [];
 
-function updateScoreAndTime(points) {
+function updateScoreAndTime(points,timeGain) {
   score += points;
-  time = Math.min(time + 5, 100);
+  time = Math.min(time + timeGain, 100);
 }
 
 function gameOver() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = "40px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Game Over ", canvas.width / 2 - 100, canvas.height / 2);
+  ctx.fillText("Game Over: final score " + score, canvas.width / 2 - 150, canvas.height / 2);
 }
 
 function gameLoop() {
