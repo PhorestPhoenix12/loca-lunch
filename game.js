@@ -140,8 +140,24 @@ function checkCollisions() {
     }
   });
 }
+function drawFood(food) {
+  ctx.fillStyle = food.color;
+  ctx.fillRect(food.x, food.y, food.width, food.height);
+}
+
+function drawTimer() {
+  ctx.fillStyle = "green";
+  ctx.fillRect(10, canvas.height - 30, (time / 100) * (canvas.width - 20), 20);
+}
+
+function drawScore() {
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText(`Score: ${score}`, 10, 30);
+}
 
 function gameLoop() {
+  // Clear the canvas before drawing anything
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -169,19 +185,20 @@ function gameLoop() {
     time -= 0.1;
     time = Math.max(time, 0);
 
-    ctx.fillStyle = "green";
-    ctx.fillRect(10, canvas.height - 30, (time / 100) * (canvas.width - 20), 20);
+    drawTimer();
+    drawScore();
 
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText(`Score: ${score}`, 10, 30);
+    foodItemsOnScreen.forEach((food) => {
+      drawFood(food);
+    });
 
     if (time <= 0) {
       isGameOver = true;
       gameOver();
     }
   } else {
-    // Display the game over message even when the game is over
+    drawTimer();
+    drawScore();
     gameOver();
   }
 
@@ -190,20 +207,17 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
   }
 }
-
-
-
-
-
 window.addEventListener("load", () => {
   adjustCanvasSize();
   gameLoop();
 });
+
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
   resetGame();
   gameLoop();
 });
+
 window.addEventListener("resize", adjustCanvasSize);
 adjustCanvasSize();
 gameLoop();
