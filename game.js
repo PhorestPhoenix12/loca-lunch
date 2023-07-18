@@ -76,11 +76,7 @@ function gameOver() {
   ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
   ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 130, canvas.height / 2 + 50);
 }
-function drawTimerBar() {
-  const timerBarWidth = (time / 100) * canvas.width;
-  ctx.fillStyle = "#00C853";
-  ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
-}
+
 // Draw a gradient background
 function drawBackground() {
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -88,6 +84,27 @@ function drawBackground() {
   gradient.addColorStop(1, "#64B5F6");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// New function to handle collision between player and food
+function handleCollision() {
+  for (let i = foodItemsOnScreen.length - 1; i >= 0; i--) {
+    const food = foodItemsOnScreen[i];
+
+    if (isCollision(player, food)) {
+      updateScoreAndTime(1, food.timeGain);
+      foodItemsOnScreen.splice(i, 1);
+    } else if (food.y > canvas.height) {
+      foodItemsOnScreen.splice(i, 1);
+    }
+  }
+}
+
+// Draw timer bar
+function updateTimerBar() {
+  const timerBarWidth = (time / 100) * canvas.width;
+  ctx.fillStyle = "#00C853";
+  ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
 }
 
 // Game loop
@@ -117,21 +134,18 @@ function gameLoop() {
       foodItemsOnScreen.push(createFood());
     }
 
-    // Move food items and check for collisions
+    // Move food items
     for (let i = foodItemsOnScreen.length - 1; i >= 0; i--) {
       const food = foodItemsOnScreen[i];
       food.y += FOOD_FALL_SPEED;
-
-      if (isCollision(player, food)) {
-        updateScoreAndTime(1, food.timeGain);
-        foodItemsOnScreen.splice(i, 1);
-      } else if (food.y > canvas.height) {
-        foodItemsOnScreen.splice(i, 1);
-      }
     }
 
+    // Check for collisions
+    handleCollision();
+
     // Draw timer bar
-        drawTimerBar();
+    updateTimerBar();
+
     // Check game over
     if (time <= 0) {
       isGameOver = true;
