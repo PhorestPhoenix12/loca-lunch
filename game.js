@@ -67,7 +67,7 @@ function randomXPosition() {
 }
 
 function randomYPosition() {
-  return Math.random() * -canvas.height;
+  return Math.random() * (canvas.height - 30);
 }
 
 function resetGame() {
@@ -151,17 +151,18 @@ function gameLoop() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (!isGameOver) {
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
 
-    if (Math.random() < 0.01) {
-      const foodType = getRandomFood().type;
-      const foodX = randomXPosition();
-      const foodY = randomYPosition();
-      const foodColor = getRandomFood().color;
-      const food = createFood(foodType, foodX, foodY, foodColor);
-      foodItemsOnScreen.push(food);
-    }
+  if (Math.random() < 0.01) {
+    const randomFood = getRandomFood(); // Get a random food object first
+    const foodType = randomFood.type;
+    const foodX = randomXPosition();
+    const foodY = randomYPosition();
+    const foodColor = randomFood.color; // Use the color from the random food object
+    const food = createFood(foodType, foodX, foodY, foodColor);
+    foodItemsOnScreen.push(food);
+  }
 
     // Check for collisions before updating the timer
     checkCollisions();
@@ -171,7 +172,7 @@ function gameLoop() {
     time = Math.min(time, 100);
 
     ctx.fillStyle = "green";
-    ctx.fillRect(10, canvas.height - 30, (time / 100) * canvas.width, 20);
+    ctx.fillRect(10, canvas.height - 30, (time / 100) * (canvas.width - 20), 20);
 
     ctx.font = "20px Arial";
     ctx.fillStyle = "black";
