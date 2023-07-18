@@ -114,48 +114,22 @@ function updateScoreAndTime(points, timeGain) {
 }
 
 function gameOver() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#b2ebf2");
-  gradient.addColorStop(1, "#80deea");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+  // Draw game over message on top of the existing canvas
   ctx.font = "40px Arial";
   ctx.fillStyle = "black";
   ctx.fillText("Game Over: final score " + score, canvas.width / 2 - 200, canvas.height / 2);
 }
 
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#b2ebf2");
-  gradient.addColorStop(1, "#80deea");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = player.color;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
-
-  if (Math.random() < 0.01) {
-    const foodType = getRandomFood().type;
-    const foodX = randomXPosition();
-    const foodY = randomYPosition();
-    const foodColor = getRandomFood().color;
-    const food = createFood(foodType, foodX, foodY, foodColor);
-    foodItemsOnScreen.push(food);
-  }
-
+function checkCollisions() {
   foodItemsOnScreen.forEach((food) => {
-    food.y += 2;
-    ctx.beginPath();
-    ctx.arc(food.x + food.width / 2, food.y + food.height / 2, food.width / 2, 0, Math.PI * 2);
-    ctx.fillStyle = food.color;
-    ctx.fill();
-
-    if (isCollision(player, food)) {
+    if (
+      player.x < food.x + food.width &&
+      player.x + player.width > food.x &&
+      player.y < food.y + food.height &&
+      player.y + player.height > food.y
+    ) {
       updateScoreAndTime(1, food.timeGain);
       const index = foodItemsOnScreen.indexOf(food);
       if (index !== -1) {
@@ -170,29 +144,66 @@ function gameLoop() {
       }
     }
   });
-
-  time -= 0.1;
-  time = Math.max(time, 0);
-  time = Math.min(time, 100);
-  if (time <= 0) {
-    time = 0;
-    gameOver();
-    return;
-  }
-  if (time >= 100) {
-    time = 100;
-    return;
-  }
-
-  ctx.fillStyle = "green";
-  ctx.fillRect(10, canvas.height - 30, (time / 100) * canvas.width, 20);
-
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText(`Score: ${score}`, 10, 30);
-
-  requestAnimationFrame(gameLoop);
 }
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, "#b2ebf2");
+  gradient.addColorStop(1, "#80deea");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Check for game over condition before updating and drawing game elements
+  if (time <= 0) {
+    isGameOver = true;
+    gameOver();
+  }
+
+  if (!isGameOver) {
+    // Draw player
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    if (Math.random() < 0.01) {
+      const foodType = getRandomFood().type;
+      const foodX = randomXPosition();
+      const foodY = randomYPosition();
+      const foodColor = getRandomFood().color;
+      const food = createFood(foodType, foodX, foodY, foodColor);
+      foodItemsOnScreen.push(food);
+    }
+
+    checkCollisions();
+
+    foodItemsOnScreen.forEach((food) => {
+      food.y += 2;
+      ctx.beginPath();
+      ctx.arc(food.x + food.width / 2, food.y + food.height / 2, food.width / 2, 0, Math.PI * 2);
+      ctx.fillStyle = food.color;
+      ctx.fill();
+    });
+
+    time -= 0.1;
+    time = Math.max(time, 0);
+    time = Math.min(time, 100);
+
+    // Draw timer bar
+    ctx.fillStyle = "green";
+    ctx.fillRect(10, canvas.height - 30, (time / 100) * canvas.width, 20);
+
+    // Draw score
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(`Score: ${score}`, 10, 30);
+
+    requestAnimationFrame(gameLoop);
+  }
+}
+
+
+
 
 // Event listener for the reset button
 const resetButton = document.getElementById("reset-button");
