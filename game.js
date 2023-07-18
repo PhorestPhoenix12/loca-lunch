@@ -73,6 +73,7 @@ function randomYPosition() {
 function resetGame() {
   score = 0;
   time = 100;
+  isGameOver = false;
   player.x = canvas.width / 2;
   player.y = canvas.height - 50;
   foodItemsOnScreen.length = 0;
@@ -106,8 +107,8 @@ const foodItemsOnScreen = [];
 
 function updateScoreAndTime(points, timeGain) {
   score += points;
-  time = Math.min(time + timeGain, 100);
-  time = Math.max(time, 0); // Ensure time doesn't go below 0
+  time += timeGain;
+  time = Math.min(time, 100); // Ensure time doesn't go above 100
 }
 
 function gameOver() {
@@ -118,25 +119,14 @@ function gameOver() {
 }
 
 function checkCollisions() {
-  foodItemsOnScreen.forEach((food) => {
-    if (
-      player.x < food.x + food.width &&
-      player.x + player.width > food.x &&
-      player.y < food.y + food.height &&
-      player.y + player.height > food.y
-    ) {
+  foodItemsOnScreen.forEach((food, index) => {
+    if (isCollision(player, food)) {
       updateScoreAndTime(1, food.timeGain);
-      const index = foodItemsOnScreen.indexOf(food);
-      if (index !== -1) {
-        foodItemsOnScreen.splice(index, 1);
-      }
+      foodItemsOnScreen.splice(index, 1);
     }
 
     if (food.y > canvas.height) {
-      const index = foodItemsOnScreen.indexOf(food);
-      if (index !== -1) {
-        foodItemsOnScreen.splice(index, 1);
-      }
+      foodItemsOnScreen.splice(index, 1);
     }
   });
 }
@@ -151,25 +141,25 @@ function gameLoop() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (!isGameOver) {
-  ctx.fillStyle = player.color;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+    if (!isGameOver) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
 
-  if (Math.random() < 0.01) {
-    const randomFood = getRandomFood(); // Get a random food object first
-    const foodType = randomFood.type;
-    const foodX = randomXPosition();
-    const foodY = randomYPosition();
-    const foodColor = randomFood.color; // Use the color from the random food object
-    const food = createFood(foodType, foodX, foodY, foodColor);
-    foodItemsOnScreen.push(food);
-  }
+    if (Math.random() < 0.05) {
+      const randomFood = getRandomFood();
+      const foodType = randomFood.type;
+      const foodX = randomXPosition();
+      const foodY = randomYPosition();
+      const foodColor = randomFood.color;
+      const food = createFood(foodType, foodX, foodY, foodColor);
+      foodItemsOnScreen.push(food);
+    }
 
-    // Check for collisions before updating the timer
     checkCollisions();
 
     time -= 0.1;
     time = Math.max(time, 0);
-    time = Math.min(time, 100);
 
     ctx.fillStyle = "green";
     ctx.fillRect(10, canvas.height - 30, (time / 100) * (canvas.width - 20), 20);
@@ -178,7 +168,6 @@ function gameLoop() {
     ctx.fillStyle = "black";
     ctx.fillText(`Score: ${score}`, 10, 30);
 
-    // Check for game over condition after updating and drawing game elements
     if (time <= 0) {
       isGameOver = true;
       gameOver();
@@ -188,10 +177,8 @@ function gameLoop() {
   }
 }
 
-// Event listener for the reset button
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
-  isGameOver = false;
   resetGame();
   gameLoop();
 });

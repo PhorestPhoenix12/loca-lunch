@@ -5,20 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[placeholder]</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script>
-        // Javascript give active class to the current nav link
-        document.addEventListener("DOMContentLoaded", function() {
-            var links = document.querySelectorAll("nav ul li a");
-            var currentFile = window.location.pathname.split("/").pop();
-
-            for (var i = 0; i < links.length; i++) {
-                var linkFile = links[i].href.split("/").pop();
-                if (linkFile === currentFile) {
-                    links[i].classList.add("active");
-                }
-            }
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -36,18 +22,18 @@
 
     <section>
         <h2>[PLACEHOLDER]</h2>
-        
+        <div id="page-container">
+            <div id="game-container">
+                <canvas id="game-canvas"></canvas>
+            </div>
+            <button id="reset-button">Reset Game</button>
+        </div>
     </section>
-         <div id="page-container">
-    <div id="game-container">
-      <canvas id="game-canvas"></canvas>
-    </div>
-    <button id="reset-button">Reset Game</button>
-  </div>
-  <script src="game.js"></script>
     
     <footer>
         <p>&copy; 2023 Food Nonprofit. All rights reserved.</p>
     </footer>
+
+    <script src="game.js"></script>
 </body>
 </html>
