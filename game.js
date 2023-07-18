@@ -77,10 +77,22 @@ function gameOver() {
   ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 130, canvas.height / 2 + 50);
 }
 
+// Draw a gradient background
+function drawBackground() {
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, "#90CAF9");
+  gradient.addColorStop(1, "#64B5F6");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 // Game loop
 function gameLoop() {
   if (!isGameOver) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw background
+    drawBackground();
 
     // Draw player
     ctx.beginPath();
