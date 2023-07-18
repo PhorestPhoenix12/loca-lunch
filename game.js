@@ -70,7 +70,7 @@ function randomYPosition() {
   return Math.random() * -canvas.height;
 }
 function realreset(){
-  return 
+  gameLoop();
 }
 
 function isCollision(rect1, rect2) {
@@ -164,6 +164,10 @@ function gameLoop() {
 
   requestAnimationFrame(gameLoop);
 }
-
+//document.addEventListener("keydown", function (event) {
+  //if (event.key === "r") {
+    //realreset();
+  //}
+//}); this is suppost to be a reset bu
 adjustCanvasSize();
 gameLoop();
