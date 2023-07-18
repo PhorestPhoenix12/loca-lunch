@@ -69,6 +69,9 @@ function randomXPosition() {
 function randomYPosition() {
   return Math.random() * -canvas.height;
 }
+function realreset(){
+  return 
+}
 
 function isCollision(rect1, rect2) {
   return (

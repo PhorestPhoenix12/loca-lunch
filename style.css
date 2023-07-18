@@ -83,14 +83,6 @@ footer {
 
 /* Game styles */
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  background-color: #4caf50; /* Green background for the rest of the page */
-}
-
 #page-container {
   display: flex;
   justify-content: center;
