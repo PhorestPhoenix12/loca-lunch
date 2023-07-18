@@ -23,12 +23,12 @@ const player = {
 };
 
 const foodItems = [
-  { type: "apple", color: "red", timeValue: 5 },
-  { type: "banana", color: "yellow", timeValue: 10 },
-  { type: "cake", color: "brown", timeValue: 15 },
-  { type: "pizza", color: "orange", timeValue: 10 },
-  { type: "burger", color: "green", timeValue: 8 },
-  { type: "ice cream", color: "blue", timeValue: 12 }
+  { type: "apple", color: "red" },
+  { type: "banana", color: "yellow" },
+  { type: "cake", color: "brown" },
+  { type: "pizza", color: "orange" },
+  { type: "burger", color: "green" },
+  { type: "ice cream", color: "blue" }
 ];
 
 function moveLeft() {
@@ -46,46 +46,20 @@ document.addEventListener("keydown", function (event) {
     moveRight();
   }
 });
-let gameOverScreenShown = false; // To track if the game over screen is shown
 
-function restartGame() {
-  score = 0;
-  time = 100;
-  foodItemsOnScreen.length = 0;
-  gameOverScreenShown = false;
-}
-
-document.addEventListener("keydown", function (event) {
-  if (gameOverScreenShown && event.key === "r") {
-    restartGame();
-    requestAnimationFrame(gameLoop);
-  }
-});
-
-function showGameOverScreen() {
-  gameOverScreenShown = true;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = "40px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
-  ctx.fillText("Press 'R' to restart", canvas.width / 2 - 150, canvas.height / 2 + 40);
-}
-
-function createFood(foodType, x, y, color, timeValue) {
+function createFood(foodType, x, y, color) {
   return {
     x,
     y,
     width: 30,
     height: 30,
     type: foodType,
-    color: color,
-    timeValue: timeValue
+    color: color
   };
 }
 
 function getRandomFood() {
-  const foodTypeObj = foodItems[Math.floor(Math.random() * foodItems.length)];
-  return createFood(foodTypeObj.type, 0, 0, foodTypeObj.color, foodTypeObj.timeValue);
+  return foodItems[Math.floor(Math.random() * foodItems.length)];
 }
 
 function randomXPosition() {
@@ -112,9 +86,9 @@ let score = 0;
 let time = 100;
 const foodItemsOnScreen = [];
 
-function updateScoreAndTime(timeValue) {
-  score += 1;
-  time = Math.min(time + timeValue, 100);
+function updateScoreAndTime(points) {
+  score += points;
+  time = Math.min(time + 5, 100);
 }
 
 function gameOver() {
@@ -153,12 +127,12 @@ function gameLoop() {
     ctx.fill();
 
     if (isCollision(player, food)) {
-    updateScoreAndTime(food.timeValue); // Use the timeValue of the caught food
-    const index = foodItemsOnScreen.indexOf(food);
-    if (index !== -1) {
-      foodItemsOnScreen.splice(index, 1);
+      updateScoreAndTime(1);
+      const index = foodItemsOnScreen.indexOf(food);
+      if (index !== -1) {
+        foodItemsOnScreen.splice(index, 1);
+      }
     }
-  }
 
     if (food.y > canvas.height) {
       const index = foodItemsOnScreen.indexOf(food);
@@ -173,7 +147,7 @@ function gameLoop() {
   time = Math.min(time, 100);
   if (time <= 0) {
     time = 0;
-    showGameOverScreen();
+    gameOver();
     return;
   }
   if (time>=100){
@@ -188,9 +162,8 @@ function gameLoop() {
   ctx.fillStyle = "black";
   ctx.fillText(`Score: ${score}`, 10, 30);
 
-  if (!gameOverScreenShown) {
-    requestAnimationFrame(gameLoop);
-  }
+  requestAnimationFrame(gameLoop);
 }
+
 adjustCanvasSize();
 gameLoop();
