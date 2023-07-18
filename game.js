@@ -17,7 +17,7 @@ const player = {
   x: canvas.width / 2,
   y: canvas.height - PLAYER_RADIUS - 10,
   radius: PLAYER_RADIUS,
-  color: "#1E88E5"
+  color: "#1E88E5",
 };
 
 // Food items
@@ -27,7 +27,7 @@ const foodItems = [
   { type: "cake", color: "#795548", timeGain: 15 },
   { type: "pizza", color: "#FF9800", timeGain: 8 },
   { type: "burger", color: "#4CAF50", timeGain: 7 },
-  { type: "ice cream", color: "#1976D2", timeGain: 12 }
+  { type: "ice cream", color: "#1976D2", timeGain: 12 },
 ];
 
 const foodItemsOnScreen = [];
@@ -49,15 +49,18 @@ function createFood() {
     radius: FOOD_RADIUS,
     type: food.type,
     color: food.color,
-    timeGain: food.timeGain
+    timeGain: food.timeGain,
   };
 }
 
+function getDistance(point1, point2) {
+  const dx = point1.x - point2.x;
+  const dy = point1.y - point2.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
 function isCollision(circle1, circle2) {
-  const dx = circle1.x - circle2.x;
-  const dy = circle1.y - circle2.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
-  return distance < circle1.radius + circle2.radius;
+  return getDistance(circle1, circle2) < circle1.radius + circle2.radius;
 }
 
 function updateScoreAndTime(points, timeGain) {
@@ -86,22 +89,8 @@ function drawBackground() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// New function to handle collision between player and food
-function handleCollision() {
-  for (let i = foodItemsOnScreen.length - 1; i >= 0; i--) {
-    const food = foodItemsOnScreen[i];
-
-    if (isCollision(player, food)) {
-      updateScoreAndTime(1, food.timeGain);
-      foodItemsOnScreen.splice(i, 1);
-    } else if (food.y > canvas.height) {
-      foodItemsOnScreen.splice(i, 1);
-    }
-  }
-}
-
-// Draw timer bar
-function updateTimerBar() {
+// Function to draw the timer bar
+function drawTimerBar() {
   const timerBarWidth = (time / 100) * canvas.width;
   ctx.fillStyle = "#00C853";
   ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
@@ -138,13 +127,19 @@ function gameLoop() {
     for (let i = foodItemsOnScreen.length - 1; i >= 0; i--) {
       const food = foodItemsOnScreen[i];
       food.y += FOOD_FALL_SPEED;
+
+      if (food.y > canvas.height) {
+        // Remove food items that have left the screen
+        foodItemsOnScreen.splice(i, 1);
+      } else if (isCollision(player, food)) {
+        // Check for collisions with the player
+        updateScoreAndTime(1, food.timeGain);
+        foodItemsOnScreen.splice(i, 1);
+      }
     }
 
-    // Check for collisions
-    handleCollision();
-
-    // Draw timer bar
-    updateTimerBar();
+    // Draw the timer bar
+    drawTimerBar();
 
     // Check game over
     if (time <= 0) {
