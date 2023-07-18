@@ -46,6 +46,30 @@ document.addEventListener("keydown", function (event) {
     moveRight();
   }
 });
+let gameOverScreenShown = false; // To track if the game over screen is shown
+
+function restartGame() {
+  score = 0;
+  time = 100;
+  foodItemsOnScreen.length = 0;
+  gameOverScreenShown = false;
+}
+
+document.addEventListener("keydown", function (event) {
+  if (gameOverScreenShown && event.key === "r") {
+    restartGame();
+    requestAnimationFrame(gameLoop);
+  }
+});
+
+function showGameOverScreen() {
+  gameOverScreenShown = true;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "40px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
+  ctx.fillText("Press 'R' to restart", canvas.width / 2 - 150, canvas.height / 2 + 40);
+}
 
 function createFood(foodType, x, y, color) {
   return {
@@ -147,7 +171,7 @@ function gameLoop() {
   time = Math.min(time, 100);
   if (time <= 0) {
     time = 0;
-    gameOver();
+    showGameOverScreen();
     return;
   }
   if (time>=100){
