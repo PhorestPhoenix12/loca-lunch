@@ -168,6 +168,6 @@ function gameLoop() {
   //if (event.key === "r") {
     //realreset();
   //}
-//}); this is suppost to be a reset bu
+//}); this is suppost to be a reset button but doesnt work rn
 adjustCanvasSize();
 gameLoop();
