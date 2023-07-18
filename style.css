@@ -2,7 +2,8 @@
 
 /* default to border-box */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
 html {
   box-sizing: border-box;
   font-size: 16px;
@@ -24,7 +25,7 @@ video {
 /* Your custom styles */
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Sniglet', sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -32,7 +33,7 @@ body {
 }
 
 header {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Sniglet', cursive;
   background-color: #399E8D;
   padding: 20px;
 }
@@ -44,7 +45,7 @@ nav ul {
 }
 
 nav ul li {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Sniglet', sans-serif;
   display: inline;
 }
 
@@ -75,7 +76,7 @@ section h2 {
 }
 
 section p {
-  font-family: roboto, sans-serif;
+  font-family: 'sniglet', sans-serif;
   color: #052E27;
 }
 
