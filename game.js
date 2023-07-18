@@ -112,7 +112,7 @@ let score = 0;
 let time = 100;
 const foodItemsOnScreen = [];
 
-function updateScoreAndTime(foodTimeValue) {
+function updateScoreAndTime(timeValue) {
   score += 1;
   time = Math.min(time + timeValue, 100);
 }
