@@ -76,7 +76,11 @@ function gameOver() {
   ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
   ctx.fillText(`Final Score: ${score}`, canvas.width / 2 - 130, canvas.height / 2 + 50);
 }
-
+function drawTimerBar() {
+  const timerBarWidth = (time / 100) * canvas.width;
+  ctx.fillStyle = "#00C853";
+  ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
+}
 // Draw a gradient background
 function drawBackground() {
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -127,10 +131,7 @@ function gameLoop() {
     }
 
     // Draw timer bar
-    const timerBarWidth = (time / 100) * canvas.width;
-    ctx.fillStyle = "#00C853";
-    ctx.fillRect(0, canvas.height - 20, timerBarWidth, 20);
-
+        drawTimerBar();
     // Check game over
     if (time <= 0) {
       isGameOver = true;
