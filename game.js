@@ -18,7 +18,7 @@ const player = {
   y: canvas.height - 50,
   width: 40,
   height: 40,
-  speed: 5,
+  speed: 10,
   color: "blue"
 };
 
@@ -95,7 +95,7 @@ function gameOver() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = "40px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
+  ctx.fillText("Game Over ", canvas.width / 2 - 100, canvas.height / 2);
 }
 
 function gameLoop() {
