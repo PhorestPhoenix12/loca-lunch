@@ -83,27 +83,39 @@ footer {
 
 /* Game styles */
 
-#page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 #game-container {
-  background-color: #fafafa;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  position: relative; /* Adds position relative to set position for timer bar */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90vmin;
-  height: 90vmin;
-  max-width: 90%;
-  max-height: 90%;
+  height: 80vh;
 }
 
 #game-canvas {
-  display: block;
+  border: 2px solid #1976D2;
+  border-radius: 10px;
+  background-color: #FFF9E2;
+}
+
+#timer-bar-container {
+  position: absolute; /* Positions the timer bar at the bottom of the game container */
+  bottom: 0;
+  left: 0;
   width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#timer-bar {
   height: 100%;
+  background-color: #00C853;
+}
+
+#score-display {
+  margin-top: 10px; /* Adds some spacing below the canvas for the score display */
+  font-size: 24px;
+  font-weight: bold;
 }
