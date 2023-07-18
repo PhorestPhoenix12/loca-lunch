@@ -84,11 +84,7 @@ function isCollision(rect1, rect2) {
     y: rect2.y + rect2.height / 2,
     radius: rect2.width / 2
   };
-const resetButton = document.getElementById("reset-button");
-resetButton.addEventListener("click", () => {
-  resetGame();
-  gameLoop();
-});
+
   const distX = Math.abs(circle.x - rect1.x - rect1.width / 2);
   const distY = Math.abs(circle.y - rect1.y - rect1.height / 2);
 
@@ -105,6 +101,7 @@ resetButton.addEventListener("click", () => {
 
 let score = 0;
 let time = 100;
+let isGameOver = false;
 const foodItemsOnScreen = [];
 
 function updateScoreAndTime(points, timeGain) {
@@ -114,13 +111,11 @@ function updateScoreAndTime(points, timeGain) {
 }
 
 function gameOver() {
-  // Draw game over message on top of the existing canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = "40px Arial";
   ctx.fillStyle = "black";
   ctx.fillText("Game Over: final score " + score, canvas.width / 2 - 200, canvas.height / 2);
 }
-
-
 
 function checkCollisions() {
   foodItemsOnScreen.forEach((food) => {
@@ -155,14 +150,7 @@ function gameLoop() {
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Check for game over condition before updating and drawing game elements
-  if (time <= 0) {
-    isGameOver = true;
-    gameOver();
-  }
-
   if (!isGameOver) {
-    // Draw player
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
 
@@ -175,39 +163,34 @@ function gameLoop() {
       foodItemsOnScreen.push(food);
     }
 
+    // Check for collisions before updating the timer
     checkCollisions();
-
-    foodItemsOnScreen.forEach((food) => {
-      food.y += 2;
-      ctx.beginPath();
-      ctx.arc(food.x + food.width / 2, food.y + food.height / 2, food.width / 2, 0, Math.PI * 2);
-      ctx.fillStyle = food.color;
-      ctx.fill();
-    });
 
     time -= 0.1;
     time = Math.max(time, 0);
     time = Math.min(time, 100);
 
-    // Draw timer bar
     ctx.fillStyle = "green";
     ctx.fillRect(10, canvas.height - 30, (time / 100) * canvas.width, 20);
 
-    // Draw score
     ctx.font = "20px Arial";
     ctx.fillStyle = "black";
     ctx.fillText(`Score: ${score}`, 10, 30);
 
-    requestAnimationFrame(gameLoop);
+    // Check for game over condition after updating and drawing game elements
+    if (time <= 0) {
+      isGameOver = true;
+      gameOver();
+    } else {
+      requestAnimationFrame(gameLoop);
+    }
   }
 }
-
-
-
 
 // Event listener for the reset button
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
+  isGameOver = false;
   resetGame();
   gameLoop();
 });
