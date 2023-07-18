@@ -18,7 +18,7 @@ const player = {
   y: canvas.height - 50,
   width: 40,
   height: 40,
-  speed: 5,
+  speed: 15,
   color: "blue"
 };
 
@@ -78,7 +78,8 @@ function createFood(foodType, x, y, color) {
     width: 30,
     height: 30,
     type: foodType,
-    color: color
+    color: color,
+    image: "image"
   };
 }
 
