@@ -125,8 +125,18 @@ function checkCollisions() {
       foodItemsOnScreen.splice(index, 1);
     }
 
+    // Keep the food items on the screen
     if (food.y > canvas.height) {
       foodItemsOnScreen.splice(index, 1);
+
+      // Spawn new food to replace the removed one
+      const randomFood = getRandomFood();
+      const foodType = randomFood.type;
+      const foodX = randomXPosition();
+      const foodY = randomYPosition();
+      const foodColor = randomFood.color;
+      const newFood = createFood(foodType, foodX, foodY, foodColor);
+      foodItemsOnScreen.push(newFood);
     }
   });
 }
@@ -140,12 +150,10 @@ function gameLoop() {
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (!isGameOver) {
-    if (!isGameOver) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
 
+  if (!isGameOver) {
     if (Math.random() < 0.05) {
       const randomFood = getRandomFood();
       const foodType = randomFood.type;
@@ -171,17 +179,31 @@ function gameLoop() {
     if (time <= 0) {
       isGameOver = true;
       gameOver();
-    } else {
-      requestAnimationFrame(gameLoop);
     }
+  } else {
+    // Display the game over message even when the game is over
+    gameOver();
+  }
+
+  // Continue the game loop as long as the game is not over
+  if (!isGameOver) {
+    requestAnimationFrame(gameLoop);
   }
 }
 
+
+
+
+
+window.addEventListener("load", () => {
+  adjustCanvasSize();
+  gameLoop();
+});
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
   resetGame();
   gameLoop();
 });
-
+window.addEventListener("resize", adjustCanvasSize);
 adjustCanvasSize();
 gameLoop();
