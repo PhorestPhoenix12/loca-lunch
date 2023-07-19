@@ -33,9 +33,37 @@
             </ul>
         </nav>
     </header>
+  <div class="row">
+  <div class="column"></div>
+  <div class="column"></div>
+</div>
+  <style>
+* {
+  box-sizing: border-box;
+}
 
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+  <div class="column" style="background-color:#EAFFE2;">
+    <h2>Local Resources</h2>
     <section>
-        <h2>Local Resources</h2>
         <div class="resources">
             <div class="resource">
                 <h3>Food Bank</h3>
@@ -55,13 +83,18 @@
             <!-- Add resources here -->
         </div>
     </section>
-
+  </div>
+  <div class="column" style="background-color:#EAFFE2;">
+    <h2>Find Local Food Banks</h2>
     <section>
-        <h2>Find Local Food Banks</h2>
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d195572.34675747954!2d-75.26885329011529!3d40.012514570326836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smap%20of%20foodbanks%20in%20philadelphia!5e0!3m2!1sen!2sus!4v1689290274952!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
+  </div>
+</div>
+
+</body>
 
     <footer>
         <p>&copy; 2023 Loca-Lunch. All rights reserved.</p>
