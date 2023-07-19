@@ -86,6 +86,9 @@ section p {
   font-family: 'sniglet', sans-serif;
   color: #052E27;
 }
+.map-container {
+  float: right;
+}
 
 footer {
   background-color: #399E8D;
