@@ -84,7 +84,7 @@ section {
   padding: 50px;
   background-color: #EAFFE2;
   margin-bottom: 30px;
-  color: #052E27
+  color: #052E27;
 }
 
 section h2 {
@@ -102,7 +102,12 @@ section p {
 
 .resources {
   padding: 5px;
-  background-color: #F2FFED
+  background-color: #F2FFED;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.map-container {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 footer {
