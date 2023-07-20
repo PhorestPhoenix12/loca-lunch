@@ -51,6 +51,7 @@ header {
 
 h2 {
   color: #08463C;
+  text-align: center;
 }
 
 nav ul {
@@ -105,7 +106,7 @@ footer {
   text-align: center;
 }
 
-article{ flex:1; }
+
 
 /* Game styles */
 
