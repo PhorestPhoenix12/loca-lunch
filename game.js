@@ -113,7 +113,7 @@ const foodItemsOnScreen = [];
 
 function updateScoreAndTime(points) {
   score += points;
-  time = Math.min(time + 5, 100);
+  time = Math.min(time + 3, 100);
 }
 
 function gameOver() {
@@ -167,7 +167,7 @@ function gameLoop() {
     }
   });
 
-  time -= 0.03;
+  time -= 0.05;
   time = Math.max(time, 0); 
   time = Math.min(time, 100);
   if (time <= 0) {
