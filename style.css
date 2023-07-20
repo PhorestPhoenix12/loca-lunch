@@ -48,11 +48,12 @@ h2 {
   color: #08463C;
   text-align: center;
   border-style: solid;
-  border-color: #F3C892;
+  border-color: #DE7A44;
   border-radius: 25px
 }
 .short {
-  margin: 100px;
+  margin-left: 250px;
+  margin-right: 250px;
 }
 nav ul {
   margin: 0;
