@@ -47,8 +47,13 @@ header {
 h2 {
   color: #08463C;
   text-align: center;
+  border-style: solid;
+  border-color: #F3C892;
+  border-radius: 25px
 }
-
+.short {
+  margin: 100px;
+}
 nav ul {
   margin: 0;
   padding: 0;
@@ -94,14 +99,17 @@ section p {
   color: #052E27;
 }
 
+.resources {
+  padding: 5px;
+  background-color: #F2FFED
+}
+
 footer {
   background-color: #399E8D;
   color: #ffffff;
   padding: 20px;
   text-align: center;
 }
-
-
 
 /* Game styles */
 
