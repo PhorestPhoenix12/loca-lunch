@@ -19,7 +19,7 @@ const player = {
   width: 40,
   height: 40,
   speed: 15,
-  color: "blue"
+  image: "geoffreyidle.png"
 };
 
 const foodItems = [
