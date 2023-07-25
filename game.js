@@ -13,13 +13,10 @@ function adjustCanvasSize() {
 
 window.addEventListener("resize", adjustCanvasSize);
 
-const player = {
-  x: canvas.width / 2,
-  y: canvas.height - 50,
-  width: 40,
-  height: 40,
-  speed: 15,
-  color: "blue"
+const playerImage = new Image();
+playerImage.src = 'gSpriteSheet.png';
+let frameX = 0;
+let frameY = 2;
 };
 
 const foodItems = [
