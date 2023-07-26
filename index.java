@@ -17,8 +17,7 @@ int dX = 410;
 int MY = 250;
 int MX = 250;
 int MS = 3;
-PImage img1;
-PImage img2;
+PImage img1;PImage img2;
 PImage apple;
 PImage banana;
 PImage burger;
@@ -28,8 +27,7 @@ PImage mouse;
 ////start////
 void setup(){
   size(500,500);
-  img1 = loadImage("2b46c148be614439e024cd9192fb1b22.jpg");
-  img2 = loadImage("pngtree-arrow-icon-in-flat-style-png-image_3548830.jpg");
+  img1 =backgroundcd9192f48830.jpg");
   apple = loadImage("apple.png");
   banana = loadImage("banana.png");
   burger = loadImage("burger.png");
