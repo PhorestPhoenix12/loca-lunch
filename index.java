@@ -48,7 +48,7 @@ void startScreen(){
   rect(100,125, 300, 125);
   textSize(50);
   fill(120);
-  text("Munchy Mouse",165,135,280, 105);
+  text("Munchy Mouse 2",165,135,280, 105);
   ////mini///
   fill(109, 230, 129);
   stroke(119, 166, 191);
