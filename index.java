@@ -27,7 +27,7 @@ PImage mouse;
 ////start////
 void setup(){
   size(500,500);
-  img1 =backgroundcd9192f48830.jpg");
+  img1 = loadImage("background.jpg");
   apple = loadImage("apple.png");
   banana = loadImage("banana.png");
   burger = loadImage("burger.png");
@@ -119,10 +119,10 @@ void game(){
   
   ////mouse
   image(mouse, MX, MY, 45,45);
-  if(keyPressed && (key == 'a'  || key == 'A') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'keyleft'  || key == 'A') && (MX > 0 || MX < 500)){
     MX=MX - 1;
   }
-  if(keyPressed && (key == 'd'  || key == 'd') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'keyright'  || key == 'd') && (MX > 0 || MX < 500)){
     MX=MX + 1;
   }
   
