@@ -118,6 +118,14 @@ section p {
   width:600px;
 }
 
+a:link {
+  color: #61944D;
+}
+
+a:visited {
+  color: #399E8D
+}
+
 footer {
   background-color: #399E8D;
   color: #ffffff;
