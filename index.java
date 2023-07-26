@@ -119,10 +119,10 @@ void game(){
   
   ////mouse
   image(mouse, MX, MY, 45,45);
-  if(keyPressed && (key == 'keyleft'  || key == 'A') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'a'  || key == 'A') && (MX > 0 || MX < 500)){
     MX=MX - 1;
   }
-  if(keyPressed && (key == 'keyright'  || key == 'd') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'D'  || key == 'd') && (MX > 0 || MX < 500)){
     MX=MX + 1;
   }
   
