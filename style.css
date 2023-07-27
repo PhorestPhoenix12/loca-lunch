@@ -111,11 +111,11 @@ section p {
   width:600px;
 }
 
-a:link ul h3 {
+h3 a:link {
   color: #61944D;
 }
 
-a:visited h3 ul {
+h3 a:visited {
   color: #A3DA8D;
 }
 
