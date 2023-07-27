@@ -124,7 +124,18 @@ void game(){
     bS= bS * - 1;
 }
   ///burger
-  image(burger,cX,cY,60,60);
+  fill(255);
+  noStroke();
+  rect(cX,cY, 60,60);
+  ellipseMode(CORNER);
+  fill(136, 87, 62);
+  ellipse(cX+5, cY+25, 50,35);
+  fill(249, 144,111);
+  ellipse(cX+5, cY+25, 50,25);
+  fill(255, 166,0);
+  rect(cX+2, cY+20, 56, 20);
+  fill(136, 87, 62);
+  ellipse(cX+5, cY+5, 50,35);
   cY= cY + cS;
   if ((cY > 500) || (cY < 0)) {
     cS= cS * - 1;
@@ -153,6 +164,8 @@ void game(){
   
   ////mouse
   image(mouse, MX, MY, 45,45);
+  
+  
   if(keyPressed && (key == 'a' || key == 'A') && (MX > 0 || MX < 500)){
     MX=MX - 1;
   }
