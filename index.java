@@ -18,7 +18,6 @@ int MY = 250;
 int MX = 250;
 int MS = 3;
 PImage img1;
-PImage img2;
 PImage apple;
 PImage banana;
 PImage burger;
@@ -28,7 +27,7 @@ PImage mouse;
 ////start////
 void setup(){
   size(500,500);
-  img1 = loadImage("background.jpg");
+  img1 = loadImage("town.jpg");
   apple = loadImage("apple.png");
   banana = loadImage("banana.png");
   burger = loadImage("burger.png");
@@ -39,25 +38,24 @@ void setup(){
 ////background///
 void startScreen(){
   ///Mini Setup
-  background(0);
-  image(img1,0,0,width,height,50);
+  background(255);
   ////title////
   noStroke();
   fill(102, 145, 110);
   rect(95,120, 300, 125);
   fill(129, 230, 149);
   rect(100,125, 300, 125);
-  textSize(50);
+  textSize(40);
   fill(120);
-  text("Munchy Mouse 2",165,135,280, 105);
+  text("MunchyMouse",135,145,300, 115);
   ////mini///
   fill(109, 230, 129);
   stroke(119, 166, 191);
   strokeWeight(5)
-  rect(150,252, 200, 75,5);
+  rect(150,252,200,75,5);
   textSize(33);
   fill(120);
-  text("Click to start",160,265,194, 69);
+  text("Click to start",160,265,194,69);
   ////button////
   if(mousePressed && mouseX < 350 && mouseX > 150 && mouseY < 327 && mouseY > 252){
     nextStage = nextStage + 1;
@@ -67,8 +65,7 @@ void startScreen(){
 
 void instructions(){
   //Mini Setup
-  background(0);
-  image(img1,0,0,width,height,50);
+  background(255);
   /////text
   fill(255);
   stroke(119, 166, 191);
@@ -76,7 +73,7 @@ void instructions(){
   rect(50,50, 400, 230,5);
   textSize(22);
   fill(0);
-  text("Press the 'a' key to move the mouse left and the 'd' key to move the mouse right. Make sure that the mouse only collects healthy foods. Too win the game, catch the two fruit. However, a single nasty product will end the game. Be careful and good luck!",60,60,380, 230);
+  text("Press the 'a' key to move the mouse left and the 'd' key to move the mouse right. Make sure that the mouse only collects healthy foods. To win the game, catch the two fruit. However, a single nasty product will end the game. Be careful and good luck!",60,60,380, 230);
   ////mini///
   fill(109, 230, 129);
   stroke(119, 166, 191);
@@ -97,6 +94,7 @@ void game(){
   background(0);
   image(img1,0,0,width,height,50); 
   ////fruits
+  
   image(apple,aX,aY,60,60);
   aY= aY + aS;
   if ((aY > 500) || (aY < 0)) {
@@ -120,10 +118,10 @@ void game(){
   
   ////mouse
   image(mouse, MX, MY, 45,45);
-  if(keyPressed && (key == 'a'  || key == 'A') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'a' || key == 'A') && (MX > 0 || MX < 500)){
     MX=MX - 1;
   }
-  if(keyPressed && (key == 'D'  || key == 'd') && (MX > 0 || MX < 500)){
+  if(keyPressed && (key == 'd' || key == 'D') && (MX > 0 || MX < 500)){
     MX=MX + 1;
   }
   
