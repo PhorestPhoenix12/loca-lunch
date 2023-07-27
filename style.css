@@ -45,11 +45,12 @@ header {
 }
 
 h2 {
-  color: #08463C;
+  color: #EAFFE2;
   text-align: center;
   border-style: solid;
   border-color: #FF8300;
-  border-radius: 25px
+  border-radius: 25px;
+  background-color: #FF8300;
 }
 
 nav ul {
@@ -85,7 +86,7 @@ section {
 }
 
 section h2 {
-  color: #146356;
+  color: #EAFFE2;
   margin-bottom: 20px;
 }
 section h3 {
@@ -115,7 +116,7 @@ a:link {
 }
 
 a:visited {
-  color: #ffffff
+  color: #A3DA8D;
 }
 
 footer {
