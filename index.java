@@ -130,7 +130,22 @@ void game(){
     cS= cS * - 1;
 }
   ////cake
-  image(cake,dX,dY,60,60);
+  fill(255);
+  noStroke();
+  rect(dX,dY, 60,60);
+  ellipseMode(CORNER);
+  fill(92, 32, 21);
+  ellipse(dX+5, dY+35, 50,25);
+  fill(252, 224,185);
+  ellipse(dX+5, dY+30, 50,25);
+  fill(249, 215,211);
+  ellipse(dX+5, dY+25, 50,25);
+  fill(92, 32, 21);
+  ellipse(dX+5, dY+20, 50,25);
+  fill(252, 224,185);
+  ellipse(dX+5, dY+15, 50,25);
+  fill(249, 215,211);
+  ellipse(dX+5, dY+10, 50,25);
   dY= dY + dS;
   if ((dY > 500) || (dY < 0)) {
     dS= dS * - 1;
