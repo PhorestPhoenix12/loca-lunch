@@ -4,19 +4,19 @@ int win = 0;
 int lose = 0;
 int aY = 0;
 int aX = 250;
-int aS = 2;
+int aS = 4;
 int bY = 0;
 int bX = 50;
-int bS = 1;
+int bS = 2;
 int cY = 500;
-int cS = 2;
+int cS = 4;
 int cX = 150;
 int dY = 0;
-int dS = 3;
+int dS = 6;
 int dX = 410;
 int MY = 250;
 int MX = 250;
-int MS = 3;
+int MS = 6;
 PImage img1;
 PImage apple;
 PImage banana;
@@ -163,14 +163,29 @@ void game(){
 }
   
   ////mouse
-  image(mouse, MX, MY, 45,45);
+  fill(255);
+  noStroke();
+  rect(MX,MY, 45,45);
+  ellipseMode(CORNER);
+  fill(200);
+  ellipse(MX+5, MY+5, 35,40);
+  fill(0);
+  ellipse(MX+13, MY+32, 5,5);
+  fill(0);
+  ellipse(MX+24, MY+32, 5,5);
+  fill(249,215,211);
+  ellipse(MX+20, MY+40, 5,5);
+  ellipse(MX+7, MY+15, 15,15);
+  ellipse(MX+23, MY+15, 15,15);
+  fill(0);
+  rect(MX+20, MY+5, 25,2);
   
   
   if(keyPressed && (key == 'a' || key == 'A') && (MX > 0 || MX < 500)){
-    MX=MX - 1;
+    MX=MX - 2;
   }
   if(keyPressed && (key == 'd' || key == 'D') && (MX > 0 || MX < 500)){
-    MX=MX + 1;
+    MX=MX + 2;
   }
   
   if(MX >= aX && MX <= aX+60  && MY >= aY && MY <= aY+60){
