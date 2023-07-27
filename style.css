@@ -48,9 +48,9 @@ h2 {
   color: #146356;
   text-align: center;
   border-style: solid;
-  border-color: #FF8300;
+  border-color: #A3DA8D;
   border-radius: 25px;
-  background-color: #EAFFE2;
+  background-color: #fff;
 }
 
 nav ul {
@@ -86,7 +86,7 @@ section {
 }
 
 section h2 {
-  color: #EAFFE2;
+  color: #146356;
   margin-bottom: 20px;
 }
 section h3 {
