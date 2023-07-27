@@ -55,9 +55,9 @@ void startScreen(){
   rect(150,252,200,75,5);
   textSize(33);
   fill(120);
-  text("Click to start",160,265,194,69);
+  text("Click 'a' start",160,265,194,69);
   ////button////
-  if(mousePressed && mouseX < 350 && mouseX > 150 && mouseY < 327 && mouseY > 252){
+  if(keyPressed && (key == 'a'  || key == 'A')){
     nextStage = nextStage + 1;
   }
   
@@ -71,7 +71,7 @@ void instructions(){
   stroke(119, 166, 191);
   strokeWeight(5)
   rect(50,50, 400, 230,5);
-  textSize(22);
+  textSize(20);
   fill(0);
   text("Press the 'a' key to move the mouse left and the 'd' key to move the mouse right. Make sure that the mouse only collects healthy foods. To win the game, catch the two fruit. However, a single nasty product will end the game. Be careful and good luck!",60,60,380, 230);
   ////mini///
@@ -91,8 +91,7 @@ void instructions(){
 
 void game(){
   ///Mini Setup
-  background(0);
-  image(img1,0,0,width,height,50); 
+  background(255);
   ////fruits
   
   image(apple,aX,aY,60,60);
