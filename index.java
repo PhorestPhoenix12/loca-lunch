@@ -93,22 +93,43 @@ void game(){
   ///Mini Setup
   background(255);
   ////fruits
-  
-  image(apple,aX,aY,60,60);
+  ///apple
+  fill(255);
+  noStroke();
+  rect(aX,aY, 60,60);
+  fill(199, 55, 47);
+  ellipseMode(CORNER);
+  ellipse(aX+5, aY+10, 50,50);
+  fill(58, 95, 11);
+  ellipse(aX+30, aY, 20, 10);
+  fill(92, 64, 51);
+  rect(aX+28, aY, 4, 15);
   aY= aY + aS;
   if ((aY > 500) || (aY < 0)) {
     aS= aS * - 1;
 }
-  image(banana,bX,bY,60,60);
+  ////banana
+  fill(255);
+  noStroke();
+  rect(bX,bY, 60,60);
+  fill(255, 255, 53);
+  ellipseMode(CORNER);
+  ellipse(bX+5, bY+10, 50,50);
+  fill(255);
+  ellipse(bX+25, bY+2, 30,55);
+  fill(92, 64, 51);
+  rect(bX+28, bY+10, 4, 4);
   bY= bY + bS;
   if ((bY > 500) || (bY < 0)) {
     bS= bS * - 1;
 }
+  ///burger
   image(burger,cX,cY,60,60);
   cY= cY + cS;
   if ((cY > 500) || (cY < 0)) {
     cS= cS * - 1;
 }
+  ////cake
   image(cake,dX,dY,60,60);
   dY= dY + dS;
   if ((dY > 500) || (dY < 0)) {
