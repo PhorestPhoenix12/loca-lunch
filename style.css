@@ -65,7 +65,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #dddddd;
+  color: #ffffff;
   text-decoration: none;
   margin-right: 15px;
 }
@@ -111,11 +111,11 @@ section p {
   width:600px;
 }
 
-a:link {
+a:link ul h3 {
   color: #61944D;
 }
 
-a:visited {
+a:visited ul h3 {
   color: #A3DA8D;
 }
 
