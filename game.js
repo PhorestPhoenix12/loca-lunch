@@ -18,7 +18,7 @@ const player = {
   y: canvas.height - 50,
   width: 40,
   height: 40,
-  speed: 15,
+  speed: 20,
   color: "blue"
 };
 
@@ -113,7 +113,7 @@ const foodItemsOnScreen = [];
 
 function updateScoreAndTime(points) {
   score += points;
-  time = Math.min(time + 3, 100);
+  time = Math.min(time + 5, 100);
 }
 
 function gameOver() {
