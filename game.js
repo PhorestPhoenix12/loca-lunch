@@ -18,7 +18,7 @@ const player = {
   y: canvas.height - 50,
   width: 40,
   height: 40,
-  speed: 20,
+  speed: 30,
   color: "blue"
 };
 
